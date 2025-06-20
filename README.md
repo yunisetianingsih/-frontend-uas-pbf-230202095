@@ -69,14 +69,26 @@ Menggunakan `Http::get()` di controller Laravel untuk mengambil data dari backen
 
 Contoh controller:
 ```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-public function index()
+class ObatController extends Controller
 {
-    $response = Http::get('http://localhost:8080/obat');
-    $obat = $response->json();
-    return view('obat', compact('obat'));
+    protected $baseUrl = 'http://localhost:8080/obat';
+
+    public function index()
+    {
+        $response = Http::get($this->baseUrl);
+        $buku = $response->json();
+
+        return view('obat', ['obat' => $buku]);
+    }
 }
+
 ```
 
 ---
